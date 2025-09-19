@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  user_service:
+    image: postgres:15
+    container_name: user_db
+    restart: always
+    environment:
+      POSTGRES_USER: userDB
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: userDB
+    ports:
+      - "5433:5432"
+
+  content_service:
+    image: postgres:15
+    container_name: content_db
+    restart: always
+    environment:
+      POSTGRES_USER: contentDB
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: contentDB
+    ports:
+      - "5434:5432"
+
+
+
+  redis:
+    image: redis:latest
+    container_name: Redis_container
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data: {}
+  redis_data: {}
+
