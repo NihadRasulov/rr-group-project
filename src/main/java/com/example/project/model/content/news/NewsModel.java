@@ -18,9 +18,10 @@ public class NewsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(nullable = false)
 
+    @Column(nullable = false)
     String title;
+
     @Column(columnDefinition = "TEXT")
     String description;
 
@@ -29,6 +30,16 @@ public class NewsModel {
     List<PhotoResponseDto> images;
 
     Instant createdTime;
+
     Instant updatedTime;
 
+    @PrePersist
+    public void init(){
+        createdTime = updatedTime = Instant.now();
+    }
+
+    @PreUpdate
+    public void update(){
+        updatedTime = Instant.now();
+    }
 }

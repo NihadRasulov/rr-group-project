@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>RR Group</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<header>
+    <h1>RR Group</h1>
+    <nav>
+        <a href="/home">Home</a>
+        <a href="/projects">Projects</a>
+        <a href="/news">News</a>
+    </nav>
+</header>
+
+<section class="about">
+    <h2>About Us</h2>
+    <div th:each="about : ${homeModel.homeAboutModels}">
+        <p th:text="${about.description}"></p>
+    </div>
+</section>
+
+<section class="projects">
+    <h2>Our Projects</h2>
+    <div class="grid">
+        <div th:each="project : ${homeModel.homeProjectModels}" class="card">
+            <h3 th:text="${project.title}"></h3>
+            <p th:text="${project.summary}"></p>
+        </div>
+    </div>
+</section>
+
+<section class="why-us">
+    <h2>Why Choose Us?</h2>
+    <ul>
+        <li th:each="reason : ${homeModel.homeWhyChooseWeModels}"
+            th:text="${reason != null ? reason.reasonText : 'No reason available'}"></li>
+    </ul>
+</section>
+
+<section class="news">
+    <h2>Latest News</h2>
+    <div th:each="news : ${homeModel.newsModels}">
+        <h3 th:text="${news.title}"></h3>
+        <p th:text="${news.content}"></p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 RR Group. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**",
                                          "/swagger-ui.html",
                                          "/v3/api-docs/**").permitAll() // Swagger access without popup
+                        .requestMatchers("/home").permitAll()
                         .anyRequest().authenticated()                  // all other endpoints need JWT
                 )
 

@@ -3,6 +3,7 @@ package com.example.project.controller.project;
 import com.example.project.dto.projects.ProjectRequestDto;
 import com.example.project.model.content.project.ProjectModel;
 import com.example.project.service.project.ProjectService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,8 +20,8 @@ public class ProjectController {
 
     @PostMapping("/create")
     public ProjectModel createModel(
-            @RequestPart() ProjectRequestDto projectRequestDto,
-            @RequestPart() List<MultipartFile> files
+            @Valid @RequestPart ProjectRequestDto projectRequestDto,
+            @RequestPart List<MultipartFile> files
     ) throws IOException {
         return projectService.create(projectRequestDto, files);
     }

@@ -5,7 +5,10 @@ import com.example.project.model.login.UserEntity;
 import com.example.project.repository.login.UserRepository;
 import com.example.project.service.jwt.TokenService;
 import com.example.project.service.jwt.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +31,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest request) {
         Optional<UserEntity> userEntity = userRepository.findByUsername(request.getUsername());
 
         if (userEntity.isEmpty()) {
@@ -37,9 +40,7 @@ public class AuthController {
         if(!passwordEncoder.matches(request.getPassword(),userEntity.get().getPassword())) {
             throw new RuntimeException("Invalid password ");
         }
-
-        return tokenService.generateAndStoreTokens(request.getUsername());
-
+        return ResponseEntity.ok(tokenService.generateAndStoreTokens(request.getUsername()));
     }
 
     @PostMapping("/register")
