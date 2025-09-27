@@ -14,11 +14,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectRequestDto {
-    @NotBlank(message = "Project name is required")
     String projectName;
-    @NotBlank(message = "Customer name is required")
     String customer;
-    @NotNull(message = "Date is required")
     LocalDate date;
     String description;
 }
